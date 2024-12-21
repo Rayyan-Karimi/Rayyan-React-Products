@@ -2,20 +2,23 @@ import React from "react";
 import ProductCategory from "./ProductCategory";
 import ProductRow from "./ProductRow";
 
-export default function ProductTable({ products }) {
+export default function ProductTable({ products, filtertext, inStockOnly }) {
   let lastCategory = null;
   const rows = [];
 
   products.forEach((product) => {
+    if (!product.name.toLowerCase().includes(filtertext.toLowerCase())) {
+      return;
+    }
+    if (inStockOnly && !product.stocked) {
+      return;
+    }
     if (product.category !== lastCategory) {
       rows.push(
-        <ProductCategory
-          key={product.category}
-          category={product.category}
-        ></ProductCategory>
+        <ProductCategory key={product.category} category={product.category} />
       );
     }
-    rows.push(<ProductRow key={product.name} product={product}></ProductRow>);
+    rows.push(<ProductRow key={product.name} product={product} />);
     lastCategory = product.category;
   });
 

@@ -5,6 +5,7 @@ export default function SearchBar({
   inStockOnly,
   onFilterTextChange,
   onInStockOnlyChange,
+  onFilterByCategory
 }) {
   return (
     <div>
@@ -24,6 +25,17 @@ export default function SearchBar({
           />{" "}
           Only show products in stock
         </label>
+        <div>
+          <label className="m-4">Select by Category</label>
+          <select
+            className="bg-slate-100 border border-black rounded-lg px-3 text-center"
+            onChange={(e) => onFilterByCategory(e.target.value)}
+          >
+            <option>see options</option>
+            <option value="fruits">Fruits</option>
+            <option value="vegetables">Vegetables</option>
+          </select>
+        </div>
       </form>
     </div>
   );

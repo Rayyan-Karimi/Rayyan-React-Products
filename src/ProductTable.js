@@ -2,7 +2,12 @@ import React from "react";
 import ProductCategory from "./ProductCategory";
 import ProductRow from "./ProductRow";
 
-export default function ProductTable({ products, filtertext, inStockOnly }) {
+export default function ProductTable({
+  products,
+  filtertext,
+  inStockOnly,
+  filterByCategory,
+}) {
   let lastCategory = null;
   const rows = [];
 
@@ -11,6 +16,13 @@ export default function ProductTable({ products, filtertext, inStockOnly }) {
       return;
     }
     if (inStockOnly && !product.stocked) {
+      return;
+    }
+    if (
+      filterByCategory &&
+      filterByCategory !== "see options" &&
+      product.category.toLowerCase() !== filterByCategory.toLowerCase()
+    ) {
       return;
     }
     if (product.category !== lastCategory) {
